@@ -1,0 +1,39 @@
+Crows Armageddon
+
+Group Repo
+https://github.com/WillRobinson1-cloud/Crows-Armageddon.git
+
+VPC name: XGmedTokyo | AZ: ap-northeast-1 (Tokyo)
+
+CIDR# 10.99.0.0/16
+
+Public Subnet
+10.99.1.0/24
+10.99.3.0/24
+10.99.4.0/24
+
+Private Subnet
+10.99.11.0/24
+10.99.13.0/24
+10.99.14.0/24
+
+
+Naming Conventions
+XGmedTokyo-TG01-SG01-80
+XGmedTokyo-LB01-SG01
+XGmedTokyo-LT-80 (copy AMI#)(Amazon Linux)
+XGmedTokyo-TG01-80
+XGmedTokyo-SNS01-80
+
+
+1. Build VPC
+2. Security Groups
+3. EC2 Launch Template
+4. Target Groups
+5. SNS Topic
+6. Load Balancer + WAF
+7. WAF Edits
+8. Auto Scaling Group
+
+
+SNS email: space.ghost.x71@gmail.com
