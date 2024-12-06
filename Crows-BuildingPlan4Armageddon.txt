@@ -24,6 +24,7 @@ XGmedTokyo-LB01-SG01
 XGmedTokyo-LT-80 (copy AMI#)(Amazon Linux)
 XGmedTokyo-TG01-80
 XGmedTokyo-SNS01-80
+XGmedTokyo-LB01-WAF01
 
 
 1. Build VPC
