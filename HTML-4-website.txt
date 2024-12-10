@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang=\"en\" class=\"h100\">
+<head>
+<title>Tokyo Midtown Medical Center</title>
+</head>
+<body>
+<div>
+<h1>A Class 6 Site</h1>
+
+<br>
+
+# place the main splash image of medical center and staff
+
+<img src="Tokyo-Med.jpg">
+
+<br>
+
+<h2>Not Feeling Well?...</h2>
+<h2>Our Staff Will Nurse You Back To Health in Minut</h2>
+
+<br>
+
+<img src="nurses001.png">
+
+<br>
+
+<h2>Bring A Friend... Or 10!!!</h2>
+<h2>Satisfaction Guaranteed</h2>
+
+<br>
+
+<img src="nurses002.png">
+
+<br>
+
+<img src="Bend-Over.jpg">
+
+<br>
+
+
+
+</div>
+</body>
+</html>
