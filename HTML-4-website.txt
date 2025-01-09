@@ -1,44 +1,68 @@
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+# install httpd (Linux 2 version)
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+
+# Get the IMDSv2 token
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
+# Background the curl requests
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/local-ipv4 &> /tmp/local_ipv4 &
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/placement/availability-zone &> /tmp/az &
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/ &> /tmp/macid &
+wait
+
+macid=$(cat /tmp/macid)
+local_ipv4=$(cat /tmp/local_ipv4)
+az=$(cat /tmp/az)
+vpc=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/${macid}/vpc-id)
+
+echo "
 <!doctype html>
-<html lang=\"en\" class=\"h100\">
+<html lang=\"en\" class=\"h-100\">
 <head>
-<title>Tokyo Midtown Medical Center</title>
+<title>Details for EC2 instance</title>
 </head>
 <body>
 <div>
-<h1>A Class 6 Site</h1>
+<h1>Tokyo Midtown Medical Center</h1>
 
 <br>
 
-# place the main splash image of medical center and staff
-
-<img src="Tokyo-Med.jpg">
-
+<h2>Not Feeling Well???</h2>
 <br>
-
-<h2>Not Feeling Well?...</h2>
-<h2>Our Staff Will Nurse You Back To Health in Minut</h2>
-
+<h2>Our Staff will NURSE you back to health in minutes!!!</h2>
 <br>
-
-<img src="nurses001.png">
-
+<h2>Bring A Friend... Or Ten!</h2>
 <br>
-
-<h2>Bring A Friend... Or 10!!!</h2>
-<h2>Satisfaction Guaranteed</h2>
-
-<br>
-
-<img src="nurses002.png">
-
-<br>
-
-<img src="Bend-Over.jpg">
-
+<h2>Satisfaction Guaranteed !!!</h2>
 <br>
 
 
+# insert an image or GIF
+<img src="https://i.imgur.com/LzxB2Vg.jpg" alt="i.imgur.com">
+<br>
 
+<img src="https://i.imgur.com/JfUiDHe.jpg" alt="i.imgur.com">
+<br>
+
+<img src="https://i.imgur.com/m3ZHyGY.jpg" alt="i.imgur.com">
+<br>
+
+<img src="https://i.imgur.com/AkAludp.jpg" alt="i.imgur.com">
+<br>
+<br>
+<p><b>Instance Name:</b> $(hostname -f) </p>
+<p><b>Instance Private Ip Address: </b> ${local_ipv4}</p>
+<p><b>Availability Zone: </b> ${az}</p>
+<p><b>Virtual Private Cloud (VPC):</b> ${vpc}</p>
 </div>
 </body>
 </html>
+" > /var/www/html/index.html
+
+# Clean up the temp files
+rm -f /tmp/local_ipv4 /tmp/az /tmp/macid
